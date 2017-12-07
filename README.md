@@ -24,4 +24,17 @@ compare_profiles.R <input profile directory> similarities.txt
 similarity_heatmap.R similarities.txt similarities.png --cluster
 ```
 
+## Get gene and transcript information from biomaRt
+
+This is a simple script for fetching information regarding gene and transcript
+IDs, symbols and biotypes from Ensembl using the [biomaRt][biomart] package.
+These information files are used in some of the other scripts for filtering
+out non-coding genes or mapping transcripts to genes.
+
+```{bash Get biomaRt info}
+# Get biomaRt information
+get_biomart_info.R GRCh38 biomart/biomart.grch38.txt
+```
+
+[biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [seqcat]: https://bioconductor.org/packages/release/bioc/html/seqCAT.html
