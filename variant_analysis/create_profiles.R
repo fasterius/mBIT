@@ -1,5 +1,22 @@
 #!/usr/bin/env Rscript
 
+# Install missing packages (if applicable)
+packages <- c("argparse", "seqCAT")
+if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
+  cat("installing missing packages ...\n")
+  tryCatch (silent = TRUE,
+            install.packages(setdiff(packages, rownames(installed.packages())),
+                             repos = "http://cran.us.r-project.org"),
+            warning = function(bc) {
+              source("http://bioconductor.org/biocLite.R")
+              biocLite(setdiff(packages, rownames(installed.packages())))
+            },
+            error = function(bc) {
+              source("http://bioconductor.org/biocLite.R")
+              biocLite(setdiff(packages, rownames(installed.packages())))
+            })
+}
+
 # Argument parser
 suppressPackageStartupMessages(library("argparse"))
 parser <- ArgumentParser(epilog = paste0("Create SNV profiles for VCF files ",
