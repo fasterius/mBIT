@@ -36,5 +36,33 @@ out non-coding genes or mapping transcripts to genes.
 get_biomart_info.R GRCh38 biomart/biomart.grch38.txt
 ```
 
+## Differential expression analysis
+
+These are scripts related to differential expression analyses (DEA) of RNA-seq
+data. The main one, `de_analysis.R` calculates which genes are differentially
+expressed between two samples, using either [DESeq2][deseq2], [edgeR][edger] or
+[Limma][limma] or a combination of overlapping DEGs between them. It can handle
+inputs as either raw counts or gene expression measurements (TPM) from both
+[Kallisto][kallisto] and [Salmon][salmon], using [TXimport][tximport]. The
+other scripts can analyse the output from `de_analysis.R` in various ways.
+
+```{bash DEA}
+# Calculate differential expression
+# This script has many options and parameters: use `-h` to see them all
+de_analysis.R counts.txt sample1,sample2 biomaRt_info.txt degs.txt edgeR
+
+# Plot the p-value distribution of DEGs
+p_distribution.R degs.txt p_distribution.png
+
+# Create a volcano plot of DEGs
+volcano.R degs.txt volcano.png
+```
+
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
+[deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
+[edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
+[kallisto]: https://pachterlab.github.io/kallisto/
+[limma]: http://bioconductor.org/packages/release/bioc/html/limma.html
+[salmon]: https://combine-lab.github.io/salmon/
 [seqcat]: https://bioconductor.org/packages/release/bioc/html/seqCAT.html
+[tximport]: https://bioconductor.org/packages/release/bioc/html/tximport.html
