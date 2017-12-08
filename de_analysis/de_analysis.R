@@ -52,8 +52,8 @@ parser$add_argument("-f", "--FDR-cutoff",
                     type    = "double",
                     dest    = "fdr_cutoff",
                     metavar = "",
-                    default = 0.05,
-                    help    = "desired FDR cutoff [default: 0.05]")
+                    default = 0.01,
+                    help    = "desired FDR cutoff [default: 0.01]")
 parser$add_argument("-F", "--fc-cutoff",
                     type    = "double",
                     dest    = "fc_cutoff",
