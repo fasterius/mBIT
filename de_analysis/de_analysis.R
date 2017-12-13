@@ -40,14 +40,14 @@ parser$add_argument("mode",
                     type    = "character", 
                     help    = paste("[intersection / partial / union /",
                                     "DESeq / edgeR / Limma"))
-parser$add_argument("-n", "--non-coding",
-                    action  = "store_true",
-                    dest    = "non_coding",
-                    help    = "also include non-coding genes in the analysis")
-parser$add_argument("-N", "--non_degs",
+parser$add_argument("-n", "--non-degs",
                     action  = "store_true",
                     dest    = "non_degs",
                     help    = "include non-DEGs in results [default: FALSE]")
+parser$add_argument("-N", "--non-coding",
+                    action  = "store_true",
+                    dest    = "non_coding",
+                    help    = "also include non-coding genes in the analysis")
 parser$add_argument("-f", "--FDR-cutoff",
                     type    = "double",
                     dest    = "fdr_cutoff",
@@ -205,10 +205,12 @@ finalise_dea <- function(res, biomart_info, non_degs, fdr_cutoff, fc_cutoff) {
     row.names(res) <- res$Row.names
     res$Row.names <- NULL
 
+    # Remove NAs
+    res <- res[!is.na(res$FDR), ]
+
     # Remove non-degs (if applicable)
     if(!non_degs) {
         res <- res[res$FDR <= fdr_cutoff &
-                   !is.na(res$FDR) &
                    2^abs(res$log2FC) >= fc_cutoff, ]
     }
 
