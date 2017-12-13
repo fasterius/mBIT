@@ -58,6 +58,19 @@ p_distribution.R degs.txt p_distribution.png
 volcano.R degs.txt volcano.png
 ```
 
+The `pathway_analysis.R` script can analyse a DEG list and one or more
+specified KEGG pathways, finding which genes are differentially expressed
+in that pathway and visualises them in an image with fold change colour
+gradients. It can also quantify and list the various types of interactions
+(*e.g.* phosphorylations, direct interactions, etc.) in said pathway(s),
+where a *perturbation event* is defined as an interaction **A -> B** where
+**A** is a DEG.
+
+```{bash Pathway analysis}
+# Analyse the MAPK pathway
+pathway_analysis.R degs.txt
+```
+
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
