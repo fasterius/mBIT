@@ -63,8 +63,8 @@ specified KEGG pathways, finding which genes are differentially expressed
 in that pathway and visualises them in an image with fold change colour
 gradients. It can also quantify and list the various types of interactions
 (*e.g.* phosphorylations, direct interactions, etc.) in said pathway(s),
-where a *perturbation event* is defined as an interaction **A -> B** where
-**A** is a DEG.
+where a *perturbation event* is defined as an interaction **A \to B** where
+**A** is a DEG. All this is done via the [Pathview][pathview] package.
 
 ```{bash Pathway analysis}
 # Analyse the MAPK pathway
@@ -76,6 +76,7 @@ pathway_analysis.R degs.txt
 [edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
 [kallisto]: https://pachterlab.github.io/kallisto/
 [limma]: http://bioconductor.org/packages/release/bioc/html/limma.html
+[pathview]: https://bioconductor.org/packages/release/bioc/html/pathview.html
 [salmon]: https://combine-lab.github.io/salmon/
 [seqcat]: https://bioconductor.org/packages/release/bioc/html/seqCAT.html
 [tximport]: https://bioconductor.org/packages/release/bioc/html/tximport.html
