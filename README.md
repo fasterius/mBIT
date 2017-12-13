@@ -63,7 +63,7 @@ specified KEGG pathways, finding which genes are differentially expressed
 in that pathway and visualises them in an image with fold change colour
 gradients. It can also quantify and list the various types of interactions
 (*e.g.* phosphorylations, direct interactions, etc.) in said pathway(s),
-where a *perturbation event* is defined as an interaction **A \to B** where
+where a *perturbation event* is defined as an interaction **A --> B** where
 **A** is a DEG. All this is done via the [Pathview][pathview] package.
 
 ```{bash Pathway analysis}
