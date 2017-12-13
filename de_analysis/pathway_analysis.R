@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 # Install missing packages (if applicable)
-packages <- c("argparse", "pathview", "dplyr", "XML", "biomaRt")
+packages <- c("argparse", "pathview", "XML")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   cat("installing missing packages ...\n")
   tryCatch (silent = TRUE,
@@ -75,7 +75,7 @@ parser$add_argument("-s", "--sum-method",
                     dest    = "sum_method",
                     default = "mean",
                     metavar = "",
-                    help = "'sum', 'mean', 'median', 'max'; (default 'mean')")
+                    help = "sum, mean, median, max; [default: mean]")
 args <- parser$parse_args()
 
 # Functions -------------------------------------------------------------------
