@@ -41,8 +41,7 @@ gg <- ggplot(data = data, aes(p_value)) +
       theme(plot.title = element_text(hjust = 0.5)) +
       labs(x     = "P-values",
            y     = "Count",
-           title = paste0("P-value distribution (", 
-                         gsub(".txt", "", args$input), ")")) 
+           title = paste0("P-value distribution (", args$input, ")"))
 
 # Save and open image
 ggsave(args$output, gg, dpi = 300, width = 7, height = 7)
