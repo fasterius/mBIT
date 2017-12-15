@@ -71,6 +71,25 @@ where a *perturbation event* is defined as an interaction **A --> B** where
 pathway_analysis.R degs.txt
 ```
 
+## Raw isoform/gene expression analyses
+
+These are scripts for collecting and analysing raw gene and isoform expression
+estimates from both [Salmon][salmon] and [Kallisto][kallisto]. The first
+script, `collect_tpm.sh` is a BASH/AWK script for collecting all the replicates
+in a directory structure into a single file, and the subsequent scripts can use
+its output.
+
+```{bash Expression analyses}
+# Collect TPM estimates across samples into a single file
+collect_tpm.sh <base Salmon/Kalliso directory> > tpm.isoforms.txt
+
+# Plot some specific isoforms
+expression_barplot.R tpm.isoforms.txt <ENSTID1,ENSTID2,...> isoforms.png
+
+# Calculate TPM correlations across all samples and plot them in a heatmap
+expression_heatmap.R tpm.isoforms.txt correlation_heatmap.png
+```
+
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
