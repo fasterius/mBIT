@@ -88,6 +88,12 @@ expression_barplot.R tpm.isoforms.txt <ENSTID1,ENSTID2,...> isoforms.png
 
 # Calculate TPM correlations across all samples and plot them in a heatmap
 expression_heatmap.R tpm.isoforms.txt correlation_heatmap.png
+
+# Sum transcript-level TPM to the gene level
+expression_sums.R tpm.isoforms.txt <biomaRt info file> tpm.genes.txt
+
+# Calculate TPM means across samples
+expression_means.R tpm.isoforms.txt sample1,sample2 tpm.isoforms.means.txt
 ```
 
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
