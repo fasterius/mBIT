@@ -144,7 +144,7 @@ create_distance_matrix <- function(data) {
 }
 
 # Function for plotting dendrograms
-plot_dendrogram <- function(data, clust, df_mat) {
+plot_dendrogram <- function(data, clust) {
 
     # Create contigency table for Adjusted Rand Index (if applicable)
     if (args$groups != "") {
@@ -180,10 +180,6 @@ plot_dendrogram <- function(data, clust, df_mat) {
                       label = label,
                       hjust = 0,
                       color = cluster)) +
-        # geom_rect(data = rect, aes(xmin = X1 - 0.3, xmax = X2 + 0.3,
-                                 # ymin = 0, ymax = ymax),
-                # color = "#1954A6", fill = NA) +
-        # geom_hline(yintercept = 0.33, color = "#cccccc") +
         coord_flip() +
         scale_y_reverse(expand = c(0.2, 0)) +
         theme_dendro() +
