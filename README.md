@@ -8,7 +8,7 @@ any script from the command line with the `-h` (or `--help`) flag. The topics
 covered by mBIT are as follows:
 
 * Variant analysis using [seqCAT][seqcat]
-* Fetching gene/transcript information from [biomaRt][biomart]
+* Fetching gene/transcript information from biomaRt
 * Gene/transcript expression analyses, including differential expression
 * Unsupervised learning and clustering analyses
 
@@ -122,6 +122,9 @@ add_metadata.R correlations.txt <metadata file> correlations.metadata.txt
 
 # Cluster the data and plot a dendrogram
 dendrogram.R correlations.metadata.txt r2 dendrogram.png -g <groups column>
+
+# Cluster and plot a heatmap of the data
+heatmap.R correlations.metadata.txt r2 heatmap.png -c all
 ```
 
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
