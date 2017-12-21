@@ -59,11 +59,12 @@ data <- read.table(args$input,
                    stringsAsFactors = FALSE)
 
 # Plot heatmap
-gg.heatmap <- plot_heatmap(data,
+gg_heatmap <- plot_heatmap(data,
                            annotate = args$annotate,
                            cluster = args$cluster)
-gg.heatmap <- gg.heatmap + theme(axis.text = element_text(size=args$axis_size))
+gg_heatmap <- gg_heatmap +
+    theme(axis.text = element_text(size = args$axis_size))
 
 # Save heatmap
 size <- as.numeric(strsplit(args$size, "x")[[1]])
-ggsave(args$output, gg.heatmap, dpi = 300, width = size[1], height = size[2])
+ggsave(args$output, gg_heatmap, dpi = 300, width = size[1], height = size[2])
