@@ -4,7 +4,13 @@ This is a collection of miscellaneous bioinformatic tools and scripts that I
 have created and used during my PhD studies. They are written in R, Python and
 bash (but mostly R) and are meant to be called from the command line. They are
 sorted according to their general theme and use. You can get help by calling
-any script from the command line with the `-h` (or `--help`) flag.
+any script from the command line with the `-h` (or `--help`) flag. The topics
+covered by mBIT are as follows:
+
+* Variant analysis using [seqCAT][seqcat]
+* Fetching gene/transcript information from [biomaRt][biomart]
+* Gene/transcript expression analyses, including differential expression
+* Unsupervised learning and clustering analyses
 
 ## Variant analysis with *seqCAT*
 
@@ -93,7 +99,29 @@ expression_heatmap.R tpm.isoforms.txt correlation_heatmap.png
 expression_sums.R tpm.isoforms.txt <biomaRt info file> tpm.genes.txt
 
 # Calculate TPM means across samples
-expression_means.R tpm.isoforms.txt sample1,sample2 tpm.isoforms.means.txt
+expression_means.R tpm.isoforms.txt <s1,s2,...> tpm.isoforms.means.txt
+```
+
+## Unsupervised learning and clustering
+
+These are scripts for applying machine learning on either variant or expression
+data from the above analyses. The `pairwise_correlations.R` script performs
+correlations in a pairwise manner between samples, for use in the `heatmap.R`
+and `dendrogram.R` scripts, while the `pc_analysis` performs a principal
+component analysis on expression data.
+
+```{bash Unsupervised learning}
+# Perform PCA on expression data (with log2 normalisation)
+pc_analysis.R tpm.genes.txt pca.png -l
+
+# Perform pairwise correlations with expression data (with log2 normalisation)
+pairwise_correlations.R tpm.genes.txt correlations.txt -l
+
+# Add some sample-specific metadata (such as known groups) to the correlations
+add_metadata.R correlations.txt <metadata file> correlations.metadata.txt
+
+# Cluster the data and plot a dendrogram
+dendrogram.R correlations.metadata.txt r2 dendrogram.png -g <groups column>
 ```
 
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
