@@ -49,9 +49,6 @@ fix_data <- function(data, features) {
         data <- data[, grep(samples, names(data), value = TRUE)]
     }
 
-    # Make sample names into uppercase
-    names(data) <- toupper(names(data))
-
     # Select features
     data <- data[grep(features, row.names(data), value = TRUE), ]
 
