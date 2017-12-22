@@ -130,6 +130,18 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 heatmap.R correlations.metadata.txt r2 heatmap.png -c all
 ```
 
+## Miscellaneous
+
+This group only contains a script for performing and plotting results of ANOVA
+calculations: the `anova.R` script. It takes long-format data containing both
+treatment and response variables, and checks if there are any differences
+between groups.
+
+```{bash Miscellaneous}
+# Perform ANOVA and Tukey's HSD
+anova.R <input> anova.png <treatment variable> <response variable>
+```
+
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
