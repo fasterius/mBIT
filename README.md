@@ -14,10 +14,6 @@ covered by mBIT are as follows:
 
 ## Variant analysis with *seqCAT*
 
-<p align="center">
-    <img src="figures/example_seqCAT.png" width="300", alt="seqCAT"/>
-</p>
-
 These are scripts using the [seqCAT][seqcat] Bioconductor R-package for variant
 analysis of high throughput sequencing (HTS) data. They are simple wrappers for
 a common workflow for seqCAT, to facilitate re-use and aggregate analysis of
@@ -34,6 +30,10 @@ compare_profiles.R <input profile directory> similarities.txt
 similarity_heatmap.R similarities.txt similarities.png --cluster
 ```
 
+<p align="center">
+    <img src="figures/example_seqCAT.png" width="300", alt="seqCAT"/>
+</p>
+
 ## Get gene and transcript information from biomaRt
 
 This is a simple script for fetching information regarding gene and transcript
@@ -47,12 +47,6 @@ get_biomart_info.R GRCh38 biomart/biomart.grch38.txt
 ```
 
 ## Differential expression analysis
-
-<p align="center">
-    <img src="figures/example_volcano.png" width="400", alt="volcano plot"/>
-    <img src="figures/example_p_distribution.png" width="400",
-        alt="p-distribution plot"/>
-</p>
 
 These are scripts related to differential expression analyses (DEA) of RNA-seq
 data. The main one, `de_analysis.R` calculates which genes are differentially
@@ -73,8 +67,11 @@ volcano.R degs.txt volcano.png
 # Plot the p-value distribution of DEGs
 p_distribution.R degs.txt p_distribution.png
 ```
+
 <p align="center">
-    <img src="figures/example_pathway.png" width="500", alt="pathway plot"/>
+    <img src="figures/example_volcano.png" width="400", alt="volcano plot"/>
+    <img src="figures/example_p_distribution.png" width="400",
+        alt="p-distribution plot"/>
 </p>
 
 The `pathway_analysis.R` script can analyse a DEG list and one or more
@@ -90,12 +87,11 @@ where a *perturbation event* is defined as an interaction **A --> B** where
 pathway_analysis.R degs.txt
 ```
 
-## Raw transcript/gene expression analyses
-
 <p align="center">
-    <img src="figures/example_transcripts.png" width="400",
-        alt="transcript plot"/>
+    <img src="figures/example_pathway.png" width="500", alt="pathway plot"/>
 </p>
+
+## Raw transcript/gene expression analyses
 
 These are scripts for collecting and analysing raw gene and transcript expression
 estimates from both [Salmon][salmon] and [Kallisto][kallisto]. The first
@@ -117,13 +113,12 @@ expression_means.R tpm.transcripts.txt <s1,s2,...> tpm.transcripts.means.txt
 expression_barplot.R tpm.transcripts.txt <ENSTID1,ENSTID2,...> transcripts.png
 ```
 
-## Unsupervised learning and clustering
-
 <p align="center">
-    <img src="figures/example_heatmap.png" width="300", alt="heatmap"/>
-    <img src="figures/example_dendrogram.png" width="300", alt="dendrogram"/>
-    <img src="figures/example_mds.png" width="300", alt="MDS plot"/>
+    <img src="figures/example_transcripts.png" width="400",
+        alt="transcript plot"/>
 </p>
+
+## Unsupervised learning and clustering
 
 These are scripts for applying machine learning on either variant or expression
 data from the above analyses. The `pairwise_correlations.R` script performs
@@ -150,6 +145,12 @@ dendrogram.R correlations.metadata.txt r2 dendrogram.png -g <groups column>
 # Cluster the data a plot a multidimensional scaling plot
 mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 ```
+
+<p align="center">
+    <img src="figures/example_heatmap.png" width="250", alt="heatmap"/>
+    <img src="figures/example_dendrogram.png" width="250", alt="dendrogram"/>
+    <img src="figures/example_mds.png" width="250", alt="MDS plot"/>
+</p>
 
 ## Miscellaneous
 
