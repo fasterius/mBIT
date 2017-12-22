@@ -14,6 +14,10 @@ covered by mBIT are as follows:
 
 ## Variant analysis with *seqCAT*
 
+<p align="center">
+    <img src="figures/example_seqCAT.png" width="200", alt="seqCAT"/>
+</p>
+
 These are scripts using the [seqCAT][seqcat] Bioconductor R-package for variant
 analysis of high throughput sequencing (HTS) data. They are simple wrappers for
 a common workflow for seqCAT, to facilitate re-use and aggregate analysis of
@@ -44,6 +48,13 @@ get_biomart_info.R GRCh38 biomart/biomart.grch38.txt
 
 ## Differential expression analysis
 
+<p align="center">
+    <img src="figures/example_volcano.png" width="200", alt="volcano plot"/>
+    <img src="figures/example_p_distribution.png" width="200",
+        alt="p-distribution plot"/>
+    <img src="figures/example_pathway.png" width="200", alt="pathway plot"/>
+</p>
+
 These are scripts related to differential expression analyses (DEA) of RNA-seq
 data. The main one, `de_analysis.R` calculates which genes are differentially
 expressed between two samples, using either [DESeq2][deseq2], [edgeR][edger] or
@@ -57,11 +68,11 @@ other scripts can analyse the output from `de_analysis.R` in various ways.
 # This script has many options and parameters: use `-h` to see them all
 de_analysis.R counts.txt sample1,sample2 biomaRt_info.txt degs.txt edgeR
 
-# Plot the p-value distribution of DEGs
-p_distribution.R degs.txt p_distribution.png
-
 # Create a volcano plot of DEGs
 volcano.R degs.txt volcano.png
+
+# Plot the p-value distribution of DEGs
+p_distribution.R degs.txt p_distribution.png
 ```
 
 The `pathway_analysis.R` script can analyse a DEG list and one or more
@@ -77,9 +88,14 @@ where a *perturbation event* is defined as an interaction **A --> B** where
 pathway_analysis.R degs.txt
 ```
 
-## Raw isoform/gene expression analyses
+## Raw transcript/gene expression analyses
 
-These are scripts for collecting and analysing raw gene and isoform expression
+<p align="center">
+    <img src="figures/example_transcripts.png" width="200",
+        alt="transcript plot"/>
+</p>
+
+These are scripts for collecting and analysing raw gene and transcript expression
 estimates from both [Salmon][salmon] and [Kallisto][kallisto]. The first
 script, `collect_tpm.sh` is a BASH/AWK script for collecting all the replicates
 in a directory structure into a single file, and the subsequent scripts can use
@@ -87,27 +103,30 @@ its output.
 
 ```{bash Expression analyses}
 # Collect TPM estimates across samples into a single file
-collect_tpm.sh <base Salmon/Kalliso directory> > tpm.isoforms.txt
-
-# Plot some specific isoforms
-expression_barplot.R tpm.isoforms.txt <ENSTID1,ENSTID2,...> isoforms.png
-
-# Calculate TPM correlations across all samples and plot them in a heatmap
-expression_heatmap.R tpm.isoforms.txt correlation_heatmap.png
+collect_tpm.sh <base Salmon/Kalliso directory> > tpm.transcripts.txt
 
 # Sum transcript-level TPM to the gene level
-expression_sums.R tpm.isoforms.txt <biomaRt info file> tpm.genes.txt
+expression_sums.R tpm.transcripts.txt <biomaRt info file> tpm.genes.txt
 
 # Calculate TPM means across samples
-expression_means.R tpm.isoforms.txt <s1,s2,...> tpm.isoforms.means.txt
+expression_means.R tpm.transcripts.txt <s1,s2,...> tpm.transcripts.means.txt
+
+# Plot some specific transcripts
+expression_barplot.R tpm.transcripts.txt <ENSTID1,ENSTID2,...> transcripts.png
 ```
 
 ## Unsupervised learning and clustering
 
+<p align="center">
+    <img src="figures/example_heatmap.png" width="200", alt="heatmap"/>
+    <img src="figures/example_dendrogram.png" width="200", alt="dendrogram"/>
+    <img src="figures/example_mds.png" width="200", alt="MDS plot"/>
+</p>
+
 These are scripts for applying machine learning on either variant or expression
 data from the above analyses. The `pairwise_correlations.R` script performs
 correlations in a pairwise manner between samples, for use in the `heatmap.R`,
-`dendrogram.R` and `mds.R` scripts, while the `pc_analysis` performs a
+`dendrogram.R` and `mds.R` scripts, while the `pc_analysis.R` performs a
 principal component analysis on expression data.
 
 ```{bash Unsupervised learning}
@@ -120,17 +139,21 @@ pairwise_correlations.R tpm.genes.txt correlations.txt -l
 # Add some sample-specific metadata (such as known groups) to the correlations
 add_metadata.R correlations.txt <metadata file> correlations.metadata.txt
 
+# Cluster the data and plot a heatmap of similarities
+heatmap.R correlations.metadata.txt r2 heatmap.png -c all
+
 # Cluster the data and plot a dendrogram
 dendrogram.R correlations.metadata.txt r2 dendrogram.png -g <groups column>
 
 # Cluster the data a plot a multidimensional scaling plot
 mds.R correlations.metadata.txt r2 mds.png -g <groups column>
-
-# Cluster and plot a heatmap of the data
-heatmap.R correlations.metadata.txt r2 heatmap.png -c all
 ```
 
 ## Miscellaneous
+
+<p align="center">
+    <img src="figures/example_anova.png" width="200", alt="ANOVA"/>
+</p>
 
 This group only contains a script for performing and plotting results of ANOVA
 calculations: the `anova.R` script. It takes long-format data containing both
