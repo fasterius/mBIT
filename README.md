@@ -69,8 +69,8 @@ p_distribution.R degs.txt p_distribution.png
 ```
 
 <p align="center">
-    <img src="figures/example_volcano.png" width="400", alt="volcano plot"/>
-    <img src="figures/example_p_distribution.png" width="400",
+    <img src="figures/example_volcano.png" width="300", alt="volcano plot"/>
+    <img src="figures/example_p_distribution.png" width="300",
         alt="p-distribution plot"/>
 </p>
 
@@ -114,7 +114,7 @@ expression_barplot.R tpm.transcripts.txt <ENSTID1,ENSTID2,...> transcripts.png
 ```
 
 <p align="center">
-    <img src="figures/example_transcripts.png" width="400",
+    <img src="figures/example_transcripts.png" width="300",
         alt="transcript plot"/>
 </p>
 
@@ -154,10 +154,6 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 
 ## Miscellaneous
 
-<p align="center">
-    <img src="figures/example_anova.png" width="600", alt="ANOVA"/>
-</p>
-
 This group only contains a script for performing and plotting results of ANOVA
 calculations: the `anova.R` script. It takes long-format data containing both
 treatment and response variables, and checks if there are any differences
@@ -167,6 +163,10 @@ between groups.
 # Perform ANOVA and Tukey's HSD
 anova.R <input> anova.png <treatment variable> <response variable>
 ```
+
+<p align="center">
+    <img src="figures/example_anova.png" width="600", alt="ANOVA"/>
+</p>
 
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
