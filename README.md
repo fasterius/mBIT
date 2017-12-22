@@ -15,7 +15,7 @@ covered by mBIT are as follows:
 ## Variant analysis with *seqCAT*
 
 <p align="center">
-    <img src="figures/example_seqCAT.png" width="200", alt="seqCAT"/>
+    <img src="figures/example_seqCAT.png" width="300", alt="seqCAT"/>
 </p>
 
 These are scripts using the [seqCAT][seqcat] Bioconductor R-package for variant
@@ -49,10 +49,9 @@ get_biomart_info.R GRCh38 biomart/biomart.grch38.txt
 ## Differential expression analysis
 
 <p align="center">
-    <img src="figures/example_volcano.png" width="200", alt="volcano plot"/>
-    <img src="figures/example_p_distribution.png" width="200",
+    <img src="figures/example_volcano.png" width="400", alt="volcano plot"/>
+    <img src="figures/example_p_distribution.png" width="400",
         alt="p-distribution plot"/>
-    <img src="figures/example_pathway.png" width="200", alt="pathway plot"/>
 </p>
 
 These are scripts related to differential expression analyses (DEA) of RNA-seq
@@ -74,6 +73,9 @@ volcano.R degs.txt volcano.png
 # Plot the p-value distribution of DEGs
 p_distribution.R degs.txt p_distribution.png
 ```
+<p align="center">
+    <img src="figures/example_pathway.png" width="500", alt="pathway plot"/>
+</p>
 
 The `pathway_analysis.R` script can analyse a DEG list and one or more
 specified KEGG pathways, finding which genes are differentially expressed
@@ -91,7 +93,7 @@ pathway_analysis.R degs.txt
 ## Raw transcript/gene expression analyses
 
 <p align="center">
-    <img src="figures/example_transcripts.png" width="200",
+    <img src="figures/example_transcripts.png" width="400",
         alt="transcript plot"/>
 </p>
 
@@ -118,9 +120,9 @@ expression_barplot.R tpm.transcripts.txt <ENSTID1,ENSTID2,...> transcripts.png
 ## Unsupervised learning and clustering
 
 <p align="center">
-    <img src="figures/example_heatmap.png" width="200", alt="heatmap"/>
-    <img src="figures/example_dendrogram.png" width="200", alt="dendrogram"/>
-    <img src="figures/example_mds.png" width="200", alt="MDS plot"/>
+    <img src="figures/example_heatmap.png" width="300", alt="heatmap"/>
+    <img src="figures/example_dendrogram.png" width="300", alt="dendrogram"/>
+    <img src="figures/example_mds.png" width="300", alt="MDS plot"/>
 </p>
 
 These are scripts for applying machine learning on either variant or expression
@@ -152,7 +154,7 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 ## Miscellaneous
 
 <p align="center">
-    <img src="figures/example_anova.png" width="200", alt="ANOVA"/>
+    <img src="figures/example_anova.png" width="600", alt="ANOVA"/>
 </p>
 
 This group only contains a script for performing and plotting results of ANOVA
