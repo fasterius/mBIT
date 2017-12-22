@@ -54,6 +54,14 @@ parser$add_argument("-p", "--prefix",
                     default = "sample",
                     metavar = "",
                     help    = "sample column name prefix [default: sample]")
+parser$add_argument("-P", "--palette",
+                    type    = "character",
+                    dest    = "palette",
+                    default = paste0("#4e8ce4,#4ee4e4,#4ee499,#e4bf4e,",
+                                     "#e4734e,#e44e4e,#e44e99,#734ee4,",
+                                     "#999999"),
+                    metavar = "",
+                    help    = "colour palette [format: <colour1,colour2,...>]")
 parser$add_argument("-s", "--size",
                     type    = "character",
                     dest    = "size",
@@ -180,6 +188,9 @@ plot_dendrogram <- function(data) {
         title <- paste0("Hierarchical clustering [", args$method, "]")
     }
 
+    # Colour palette
+    palette <- strsplit(args$palette, ",")[[1]]
+
     # Plot
     gg <- ggplot() +
         geom_segment(data = segment(dendr),
@@ -190,15 +201,16 @@ plot_dendrogram <- function(data) {
         geom_text(data = label(dendr),
                   size = args$text_size,
                   aes(x, y,
-                      label = label,
-                      hjust = 0,
-                      color = cluster)) +
+                      label  = label,
+                      hjust  = 0,
+                      colour = cluster)) +
         coord_flip() +
         scale_y_reverse(expand = c(0.2, 0)) +
         theme_dendro() +
         theme(legend.position = "none",
               plot.title      = element_text(hjust = 0.5)) +
-        labs(title = title)
+        labs(title = title) +
+        scale_colour_manual(values = palette)
 
     # Return graphical object
     return(gg)
