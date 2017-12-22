@@ -147,8 +147,8 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 ```
 
 <p align="center">
-    <img src="figures/example_heatmap.png" width="350", alt="heatmap"/>
-    <img src="figures/example_pca.png" width="350", alt="PCA"/>
+    <img src="figures/example_pca.png" width="400", alt="PCA"/>
+    <img src="figures/example_heatmap.png" width="300", alt="heatmap"/>
 </p>
 
 <p align="center">
