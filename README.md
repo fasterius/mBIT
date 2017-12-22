@@ -106,9 +106,9 @@ expression_means.R tpm.isoforms.txt <s1,s2,...> tpm.isoforms.means.txt
 
 These are scripts for applying machine learning on either variant or expression
 data from the above analyses. The `pairwise_correlations.R` script performs
-correlations in a pairwise manner between samples, for use in the `heatmap.R`
-and `dendrogram.R` scripts, while the `pc_analysis` performs a principal
-component analysis on expression data.
+correlations in a pairwise manner between samples, for use in the `heatmap.R`,
+`dendrogram.R` and `mds.R` scripts, while the `pc_analysis` performs a
+principal component analysis on expression data.
 
 ```{bash Unsupervised learning}
 # Perform PCA on expression data (with log2 normalisation)
@@ -122,6 +122,9 @@ add_metadata.R correlations.txt <metadata file> correlations.metadata.txt
 
 # Cluster the data and plot a dendrogram
 dendrogram.R correlations.metadata.txt r2 dendrogram.png -g <groups column>
+
+# Cluster the data a plot a multidimensional scaling plot
+mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 
 # Cluster and plot a heatmap of the data
 heatmap.R correlations.metadata.txt r2 heatmap.png -c all
