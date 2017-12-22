@@ -147,9 +147,13 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 ```
 
 <p align="center">
-    <img src="figures/example_heatmap.png" width="250", alt="heatmap"/>
-    <img src="figures/example_dendrogram.png" width="250", alt="dendrogram"/>
-    <img src="figures/example_mds.png" width="250", alt="MDS plot"/>
+    <img src="figures/example_heatmap.png" width="350", alt="heatmap"/>
+    <img src="figures/example_pca.png" width="350", alt="PCA"/>
+</p>
+
+<p align="center">
+    <img src="figures/example_dendrogram.png" width="350", alt="dendrogram"/>
+    <img src="figures/example_mds.png" width="350", alt="MDS plot"/>
 </p>
 
 ## Miscellaneous
