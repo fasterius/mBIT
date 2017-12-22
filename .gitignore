@@ -1,2 +1,4 @@
 *.un~
 biomart.grch*.txt
+figure_data
+.DS_Store
