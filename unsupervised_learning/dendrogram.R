@@ -144,7 +144,20 @@ create_distance_matrix <- function(data) {
 }
 
 # Function for plotting dendrograms
-plot_dendrogram <- function(data, clust) {
+plot_dendrogram <- function(data) {
+
+    # Cluster using preferred method
+    hca <- hclust(dist(df_mat), method = args$method)
+    k <- args$k
+    clust <- cutree(hca, k = k)
+
+    # Create dendrogram
+    dendr <- dendro_data(hca, type = "rectangle")
+    clust_df <- data.frame(label = row.names(df_mat), cluster = factor(clust))
+    dendr[["labels"]] <- merge(dendr[["labels"]], clust_df, by = "label")
+    rect <- aggregate(x ~ cluster, label(dendr), range)
+    rect <- data.frame(rect$cluster, rect$x)
+    ymax <- mean(hca$height[length(hca$height) - (k - 2):(k - 1)])
 
     # Create contigency table for Adjusted Rand Index (if applicable)
     if (args$groups != "") {
@@ -214,22 +227,9 @@ data <- filter_data(data)
 message("Clustering data ...")
 df_mat <- create_distance_matrix(data)
 
-# Cluster using preferred method
-hca <- hclust(dist(df_mat), method = args$method)
-k <- args$k
-clust <- cutree(hca, k = k)
-
-# Create dendrogram
-dendr <- dendro_data(hca, type = "rectangle")
-clust_df <- data.frame(label = row.names(df_mat), cluster = factor(clust))
-dendr[["labels"]] <- merge(dendr[["labels"]], clust_df, by = "label")
-rect <- aggregate(x ~ cluster, label(dendr), range)
-rect <- data.frame(rect$cluster, rect$x)
-ymax <- mean(hca$height[length(hca$height) - (k - 2):(k - 1)])
-
 # Plot dendrogram
 message("Plotting dendrogram ...")
-gg <- plot_dendrogram(data, clust)
+gg <- plot_dendrogram(data)
 
 # Save to file
 size <- as.numeric(strsplit(args$size, "x")[[1]])
