@@ -53,12 +53,14 @@ suppressPackageStartupMessages(library("seqCAT"))
 suppressPackageStartupMessages(library("ggplot2"))
 
 # Read data
+message("Reading data ...")
 data <- read.table(args$input,
                    header           = TRUE,
                    sep              = "\t",
                    stringsAsFactors = FALSE)
 
 # Plot heatmap
+message("Plotting heatmap ...")
 gg_heatmap <- plot_heatmap(data,
                            annotate = args$annotate,
                            cluster = args$cluster)
@@ -68,3 +70,4 @@ gg_heatmap <- gg_heatmap +
 # Save heatmap
 size <- as.numeric(strsplit(args$size, "x")[[1]])
 ggsave(args$output, gg_heatmap, dpi = 300, width = size[1], height = size[2])
+message("Done.")
