@@ -19,6 +19,12 @@ parser$add_argument("metadata",
 parser$add_argument("output",
                     type    = "character",
                     help    = "output data file path")
+parser$add_argument("-v", "--variable",
+                    type    = "character",
+                    dest    = "variable",
+                    default = "r2",
+                    metavar = "",
+                    help    = "variable column to keep [default: r2]")
 parser$add_argument("-m", "--merge-column",
                     type    = "character",
                     dest    = "merge_column",
@@ -76,7 +82,7 @@ meta_cols <- paste(meta_cols,
 names(merged) <- c(names(data), meta_cols)
 
 # Column ordering
-merged <- merged[c("sample_1", "sample_2", sort(meta_cols), "r2")]
+merged <- merged[c("sample_1", "sample_2", sort(meta_cols), args$variable)]
 
 # Save to file
 write.table(merged,
