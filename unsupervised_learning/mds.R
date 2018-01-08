@@ -190,8 +190,8 @@ plot_mds <- function(data, df_mat) {
         labs(x      = "Dimension 1",
              y      = "Dimension 2",
              colour = "",
-             title  = paste0("Multidimensional scaling\n(",
-                             args$method, ")")) +
+             title  = paste0("Multidimensional scaling [",
+                             args$method, "]")) +
         theme_bw() +
         theme(plot.title = element_text(hjust = 0.5),
               axis.text  = element_blank(),
