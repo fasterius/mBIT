@@ -161,7 +161,7 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 This group only contains a script for performing and plotting results of ANOVA
 calculations: the `anova.R` script. It takes long-format data containing both
 treatment and response variables, and checks if there are any differences
-between groups.
+between groups (differently coloured groups are significantly different).
 
 ```{bash Miscellaneous}
 # Perform ANOVA and Tukey's HSD
