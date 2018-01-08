@@ -181,11 +181,12 @@ plot_dendrogram <- function(data) {
         ari <- adj.rand.index(true_labels, clust)
         ari <- format(ari, digits = 3)
         title <- paste0("Hierarchical clustering [", args$method,
-                        "]\n(ARI = ", ari, ")")
+                        "]\n(k = ", k, ", ARI = ", ari, ")")
     } else {
 
         # No ARI
-        title <- paste0("Hierarchical clustering [", args$method, "]")
+        title <- paste0("Hierarchical clustering [", args$method, "]\n(k = ",
+                        k, ")")
     }
 
     # Colour palette
