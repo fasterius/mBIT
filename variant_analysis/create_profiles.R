@@ -74,9 +74,14 @@ for (vcf in files) {
     output <- paste0(args$output, "/", sample, ".profile.txt")
 
     # Create profile for current input file
-    create_profile(vcf,
-                   sample,
-                   output,
-                   args$filter_depth,
-                   args$python)
+    tryCatch({
+        create_profile(vcf,
+                       sample,
+                       output,
+                       args$filter_depth,
+                       args$python)
+    }, error = function(e) {
+        message("ERROR when creating profile for ", sample,
+                "; continuing to the next sample.")
+    })
 }
