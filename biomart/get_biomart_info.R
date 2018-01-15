@@ -56,9 +56,11 @@ if (assembly == "grch37") {
 message("Getting gene/transcript info from biomaRt ...")
 attributes <- c("ensembl_transcript_id",
                 "ensembl_gene_id",
+                "entrezgene",
                 "hgnc_symbol",
                 "gene_biotype")
 info <- getBM(attributes = attributes, mart = mart) 
 
 # Save or update the stored assembly file
 write.table(info, args$output, sep = "\t", quote = TRUE, row.names = FALSE)
+message("Done.")
