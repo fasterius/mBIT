@@ -158,12 +158,12 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 
 ## Miscellaneous
 
-This group only contains a script for performing and plotting results of ANOVA
+This group contains a script for performing and plotting results of ANOVA
 calculations: the `anova.R` script. It takes long-format data containing both
 treatment and response variables, and checks if there are any differences
 between groups (differently coloured groups are significantly different).
 
-```{bash Miscellaneous}
+```{bash ANOVA}
 # Perform ANOVA and Tukey's HSD
 anova.R <input> anova.png <treatment variable> <response variable>
 ```
@@ -172,9 +172,21 @@ anova.R <input> anova.png <treatment variable> <response variable>
     <img src="figures/example_anova.png" width="600", alt="ANOVA"/>
 </p>
 
+It also contains the `esnp_karyotyping.R` script for performing
+[eSNP-Karyotyping][esnp], which is a wrapper for the package with the same
+name. It calculated the mean allelic ratios across SNV profiles (created with
+the [seqCAT][seqcat] package), which can yield information on aneuploidy and
+chromosomal aberrations in RNA-seq data.
+
+```{bash eSNP-Karyotyping}
+esnp_karyotyping.R <SNV profile> esnp.txt
+esnp_karyotyping <SNV profile directory> esnp.txt --directory
+```
+
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
+[esnp]: https://github.com/BenvenLab/eSNPKaryotyping
 [kallisto]: https://pachterlab.github.io/kallisto/
 [limma]: http://bioconductor.org/packages/release/bioc/html/limma.html
 [pathview]: https://bioconductor.org/packages/release/bioc/html/pathview.html
