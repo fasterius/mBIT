@@ -35,6 +35,10 @@ suppressPackageStartupMessages(library("seqCAT"))
 files <- list.files(args$input, full.names = TRUE)
 profiles <- grep("profile.txt", files, value = TRUE)
 
+# Calculate total number of profiles to read and initialise counter
+nn_tot <- length(profiles)
+nn <- 1
+
 # Read all profiles
 profile_list <- list()
 for (profile in profiles) {
@@ -45,10 +49,15 @@ for (profile in profiles) {
     current_sample <- strsplit(current_sample[len], "\\.")[[1]][1]
 
     # Read current profile
-    current_profile <- read_profile(profile, current_sample)
+    message(paste0("Reading profile for ", current_sample, " in file ",
+                   basename(profile), " [", nn, " / ", nn_tot, "]"))
+    current_profile <- suppressMessages(read_profile(profile, current_sample))
 
     # Append profile to profile list
     profile_list[[length(profile_list) + 1]] <- current_profile
+
+    # Increment counter
+    nn <- nn + 1
 }
 
 # Compare all read profiles to each other
