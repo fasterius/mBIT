@@ -49,6 +49,7 @@ parser$add_argument("-c", "--cluster",
 args <- parser$parse_args()
 
 # Load packages
+message("Loading packages ...")
 suppressPackageStartupMessages(library("seqCAT"))
 suppressPackageStartupMessages(library("ggplot2"))
 

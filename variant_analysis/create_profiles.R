@@ -51,6 +51,7 @@ parser$add_argument("-P", "--pattern",
 args <- parser$parse_args()
 
 # Load seqCAT
+message("Loading packages ...")
 suppressPackageStartupMessages(library("seqCAT"))
 
 # List files to create profiles for

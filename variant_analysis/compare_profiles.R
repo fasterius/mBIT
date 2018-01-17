@@ -29,6 +29,7 @@ parser$add_argument("output",
 args <- parser$parse_args()
 
 # Load seqCAT
+message("Loading packages ...")
 suppressPackageStartupMessages(library("seqCAT"))
 
 # Get all SNV profiles in input
