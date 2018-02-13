@@ -1,4 +1,5 @@
 # Miscellaneous Bioinformatic Tools
+[![License: MIT][badge]][licence]
 
 This is a collection of miscellaneous bioinformatic tools and scripts that I
 have created and used during my PhD studies. They are written in R, Python and
@@ -182,6 +183,15 @@ chromosomal aberrations in RNA-seq data.
 esnp_karyotyping.R <SNV profile> esnp.txt
 esnp_karyotyping <SNV profile directory> esnp.txt --directory
 ```
+
+# License
+
+These scripts are available with a MIT licence. They are free software: you may
+redistribute and/or modify them under the terms of the MIT license. For more
+information, please see the `LICENCE` file.
+
+[badge]: https://img.shields.io/badge/license-mit-blue.svg
+[licence]: https://opensource.org/licenses/mit
 
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
