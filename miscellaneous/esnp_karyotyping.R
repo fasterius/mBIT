@@ -59,13 +59,17 @@ read_profiles <- function(input, dir) {
     }
 
     # Read profile(s)
+    nn_total = length(files)
+    nn = 1
     for (file in files) {
 
         # Get sample
         sample <- gsub("\\.profile\\.txt", "", basename(file))
 
         # Read profile
-        profile <- as.data.frame(read_profile(file, sample))
+        message(paste0("Reading profile for ", sample, " in file ", file, " [",
+                       nn, " / ", nn_total, "]"))
+        profile <- suppressMessages(as.data.frame(read_profile(file, sample)))
 
         # Cleanup
         profile <- profile[
@@ -75,6 +79,9 @@ read_profiles <- function(input, dir) {
 
         # Add profile to list
         profiles[[length(profiles) + 1]] <- profile
+
+        # Increment counter
+        nn = nn + 1
     }
 
     # Return all profiles
