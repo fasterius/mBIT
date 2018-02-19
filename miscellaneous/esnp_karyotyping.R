@@ -122,14 +122,33 @@ esnp_karyotyping <- function(profiles) {
                           stringsAsFactors = FALSE)
 
     # Loop through each profile
+    nn_total = length(profiles)
+    nn = 1
     for (profile in profiles) {
         
         # Get sample
         sample <- unique(profile$sample)
         profile$sample <- NULL
 
+        # Progress
+        message("Calculating allelic ratios for profile of ", sample, " [",
+                nn, " / ", nn_total, "]")
+        nn = nn + 1
+
         # Perform eSNP-Karyotyping (globally)
-        major_minor <- MajorMinorCalc(profile, 10, 1000000, 0.2)
+        major_minor <- tryCatch({
+            MajorMinorCalc(profile, 10, 1000000, 0.2)
+        }, error = function(e) {
+            message("Error for profile ", sample, "; skipping.")
+            return(NULL)
+        })
+
+        # Skip current sample if MajorMinorCalc throws an error
+        if (is.null(major_minor)) {
+            next
+        }
+
+        # Get statistics
         total_snvs <- nrow(major_minor)
         mean_ar <- mean(major_minor$MajorMinor)
         
@@ -176,7 +195,6 @@ suppressPackageStartupMessages(library("dplyr"))
 profiles <- read_profiles(args$input, args$directory)
 
 # Perform eSNP-Karyotyping
-message("Performing eSNP-Karyotyping ...")
 results <- esnp_karyotyping(profiles)
 
 # Write to file
