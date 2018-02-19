@@ -31,7 +31,7 @@ parser$add_argument("input",
                     help    = "input data file or directory path")
 parser$add_argument("output",
                     type    = "character",
-                    help    = "output image file path")
+                    help    = "output file path for results table")
 parser$add_argument("-d", "--directory",
                     action  = "store_true",
                     dest    = "directory",
@@ -51,6 +51,7 @@ read_profiles <- function(input, dir) {
         
         # Single input
         files <- list.files(dirname(input), pattern = input)
+
     } else {
         
         # Directory input
