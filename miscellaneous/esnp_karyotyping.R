@@ -69,7 +69,18 @@ read_profiles <- function(input, dir) {
         # Read profile
         message(paste0("Reading profile for ", sample, " in file ", file, " [",
                        nn, " / ", nn_total, "]"))
-        profile <- suppressMessages(as.data.frame(read_profile(file, sample)))
+        profile <- tryCatch({
+            suppressMessages(as.data.frame(read_profile(file, sample)))
+        }, error = function(e) {
+            message("Error for profile ", sample, "; skipping.")
+            return(NULL)
+        })
+
+        # Check for empty profile
+        if (is.null(profile)) {
+            nn = nn + 1
+            next
+        }
 
         # Cleanup
         profile <- profile[
