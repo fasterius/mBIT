@@ -158,10 +158,25 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 
 ## Miscellaneous
 
-This group only contains a script for performing and plotting results of ANOVA
-calculations: the `anova.R` script. It takes long-format data containing both
-treatment and response variables, and checks if there are any differences
-between groups (differently coloured groups are significantly different).
+The `enrichment_analyses.R` script analyses a list of genes and performs an
+enrichment analysis on them, to see if any annotation terms are statistically
+overrepresented. The gene list can be either the output from the DE analysis
+above, or any list of genes with a column header of `ENSGID`. Enrichment can be
+performed on either GO ([Gene Ontology][geneont]) or KEGG ([Kyoto Encyclopedia
+of Genes and Genomes][kegg]) terms.
+
+```{bash Enrichment analysis}
+# Perform a GOslim enrichment analysis and plot top 10 terms
+enrichment_analysis.R degs.txt biomaRt_info.txt enrichment.png -t GOslim
+```
+
+<p align="center">
+    <img src="figures/example_enrichment.png" width="500", alt="pathway plot"/>
+</p>
+
+The `anova.R` script takes long-format data containing both `treatment` and
+`response` variables, and checks if there are any differences between groups
+(differently coloured groups are significantly different).
 
 ```{bash Miscellaneous}
 # Perform ANOVA and Tukey's HSD
@@ -175,7 +190,9 @@ anova.R <input> anova.png <treatment variable> <response variable>
 [biomart]: https://bioconductor.org/packages/release/bioc/html/biomaRt.html
 [deseq2]: https://bioconductor.org/packages/release/bioc/html/DESeq2.html
 [edger]: http://bioconductor.org/packages/release/bioc/html/edgeR.html
+[geneont]: http://www.geneontology.org/
 [kallisto]: https://pachterlab.github.io/kallisto/
+[kegg]: http://www.kegg.jp/
 [limma]: http://bioconductor.org/packages/release/bioc/html/limma.html
 [pathview]: https://bioconductor.org/packages/release/bioc/html/pathview.html
 [salmon]: https://combine-lab.github.io/salmon/
