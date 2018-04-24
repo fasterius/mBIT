@@ -12,6 +12,7 @@ covered by mBIT are as follows:
 * Fetching gene/transcript information from biomaRt
 * Gene/transcript expression analyses, including differential expression
 * Unsupervised learning and clustering analyses
+* Enrichment analysis, ANOVA and a wrapper for eSNP-Karyotyping
 
 ## Variant analysis with *seqCAT*
 
@@ -188,11 +189,11 @@ anova.R <input> anova.png <treatment variable> <response variable>
     <img src="figures/example_anova.png" width="600", alt="ANOVA"/>
 </p>
 
-It also contains the `esnp_karyotyping.R` script for performing
-[eSNP-Karyotyping][esnp], which is a wrapper for the package with the same
-name. It calculated the mean allelic ratios across SNV profiles (created with
-the [seqCAT][seqcat] package), which can yield information on aneuploidy and
-chromosomal aberrations in RNA-seq data.
+The miscellaneous group also contains the `esnp_karyotyping.R` script for
+performing [eSNP-Karyotyping][esnp], which is a wrapper for the package with
+the same name. It calculated the mean allelic ratios across SNV profiles
+(created with the [seqCAT][seqcat] package), which can yield information on
+aneuploidy and chromosomal aberrations in RNA-seq data.
 
 ```{bash eSNP-Karyotyping}
 esnp_karyotyping.R <SNV profile> esnp.txt
