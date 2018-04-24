@@ -37,6 +37,18 @@ parser$add_argument("-t", "--type",
                     default = "GO",
                     metavar = "",
                     help    = "type [GO (default), GOslim, KEGG, KEGGM]")
+parser$add_argument("-p", "--p-value-cutoff",
+                    type    = "double",
+                    dest    = "p_value_cutoff",
+                    default = 0.05,
+                    metavar = "",
+                    help    = "p-value cutoff [default: 0.05]")
+parser$add_argument("-q", "--q-value-cutoff",
+                    type    = "double",
+                    dest    = "q_value_cutoff",
+                    default = 0.05,
+                    metavar = "",
+                    help    = "q-value cutoff [default: 0.05]")
 args = parser$parse_args()
 
 # Function definitions --------------------------------------------------------
@@ -45,14 +57,14 @@ args = parser$parse_args()
 get_biomart_info <- function(biomart_file) {
 
     # Read info file
-    message("Reading biomaRt info ...")
     info <- read.table(biomart_file,
                        sep              = "\t",
                        header           = TRUE,
                        stringsAsFactors = FALSE)
 
-    # Remove unnecessary columns
-    info <- info[c("ensemble_gene_id", "entrezgene")]
+    # Remove unnecessary columns, duplicates and missing values
+    info <- unique(info[c("ensembl_gene_id", "entrezgene")])
+    info <- info[!is.na(info$entrezgene), ]
 
     # Convert to character
     info$entrezgene <- as.character(info$entrezgene)
@@ -71,10 +83,11 @@ enrichment <- function(data, info, type = "GO") {
         enrich <- enrichGO(gene          = data$entrezgene,
                            universe      = info$entrezgene,
                            OrgDb         = org.Hs.eg.db,
+                           keyType       = "ENTREZID",
                            ont           = "BP",
                            pAdjustMethod = "BH",
-                           pvalueCutoff  = args$p_cutoff,
-                           qvalueCutoff  = args$q_cutoff,
+                           pvalueCutoff  = args$p_value_cutoff,
+                           qvalueCutoff  = args$q_value_cutoff,
                            readable      = TRUE)
 
         # GOslim-enrichment
@@ -91,7 +104,7 @@ enrichment <- function(data, info, type = "GO") {
         # KEGG-enrichment
         enrich <- enrichKEGG(gene         = data$entrezgene,
                              organism     = "hsa",
-                             pvalueCutoff = args$p_cutoff)
+                             pvalueCutoff = args$p_value_cutoff)
     } else if (type == "KEGGM") {
 
         # KEGG Module-enrichment
@@ -118,12 +131,17 @@ data <- read.table(args$input,
 message("Reading biomaRt info ...")
 info <- get_biomart_info(args$biomart)
 
+# Merge data with biomaRt info to get Entrez IDs
+message("Merging with DEG data ...")
+data <- merge(data, info, by.x = "ENSGID", by.y = "ensembl_gene_id")
+
 # Perform enrichment analysis
 message("Performing enrichment analysis ...")
 enrich <- enrichment(data, info, args$type)
 
 # Write results to file
-write.table(enrich, args$output,
+write.table(head(enrich, nrow(enrich)),
+            args$output,
             sep       = "\t",
             row.names = FALSE)
 message("Done.")
