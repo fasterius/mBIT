@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 # Install missing packages (if applicable)
-packages <- c("argparse", "clusterProfiler", "org.Hs.eg.db")
+packages <- c("argparse", "clusterProfiler", "org.Hs.eg.db", "ggplot2")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   message("installing missing packages ...")
   tryCatch (silent = TRUE,
@@ -30,25 +30,29 @@ parser$add_argument("biomart",
                     help    = "path to biomaRt info file for gene IDs")
 parser$add_argument("output",
                     type    = "character",
-                    help    = "output file path")
+                    help    = "output figure file path")
+parser$add_argument("-o", "--output-list",
+                    action  = "store_true",
+                    dest    = "output_list",
+                    help    = "also output the full term list")
 parser$add_argument("-t", "--type",
                     type    = "character",
                     dest    = "type",
                     default = "GO",
                     metavar = "",
-                    help    = "type [GO (default), GOslim, KEGG, KEGGM]")
-parser$add_argument("-p", "--p-value-cutoff",
+                    help    = "type: GO [default], GOslim, KEGG, KEGGM")
+parser$add_argument("-f", "--FDR-cutoff",
                     type    = "double",
-                    dest    = "p_value_cutoff",
-                    default = 0.05,
+                    dest    = "fdr_cutoff",
+                    default = 0.01,
                     metavar = "",
-                    help    = "p-value cutoff [default: 0.05]")
-parser$add_argument("-q", "--q-value-cutoff",
-                    type    = "double",
-                    dest    = "q_value_cutoff",
-                    default = 0.05,
+                    help    = "FDR cutoff [default: 0.01]")
+parser$add_argument("-n", "--top-n-terms",
+                    type    = "integer",
+                    dest    = "top_n_terms",
+                    default = 10,
                     metavar = "",
-                    help    = "q-value cutoff [default: 0.05]")
+                    help    = "top n terms to plot [default: 10]")
 args = parser$parse_args()
 
 # Function definitions --------------------------------------------------------
@@ -86,8 +90,7 @@ enrichment <- function(data, info, type = "GO") {
                            keyType       = "ENTREZID",
                            ont           = "BP",
                            pAdjustMethod = "BH",
-                           pvalueCutoff  = args$p_value_cutoff,
-                           qvalueCutoff  = args$q_value_cutoff,
+                           pvalueCutoff  = args$fdr_cutoff,
                            readable      = TRUE)
 
         # GOslim-enrichment
@@ -104,7 +107,7 @@ enrichment <- function(data, info, type = "GO") {
         # KEGG-enrichment
         enrich <- enrichKEGG(gene         = data$entrezgene,
                              organism     = "hsa",
-                             pvalueCutoff = args$p_value_cutoff)
+                             pvalueCutoff = args$fdr_cutoff)
     } else if (type == "KEGGM") {
 
         # KEGG Module-enrichment
@@ -116,12 +119,47 @@ enrichment <- function(data, info, type = "GO") {
     return(enrich)
 }
 
+
+# Function for plotting the top enriched terms
+plot_top_terms <- function(enrich, output, top_n_terms = 10) {
+
+    # Sort and get top terms
+    enrich <- enrich[order(enrich$p.adjust), ]
+    data <- head(enrich, top_n_terms)
+
+    # Separate long terms with newlines
+    data$Description <- gsub("([^ ]+ [^ ]+) ", "\\1\n", data$Description)
+
+    # Set factors for plotting order
+    data$Description <- factor(data$Description,
+                               levels = rev(data$Description))
+
+    # Plot
+    gg <- ggplot(data, aes(x    = Description,
+                           y    = -log10(p.adjust),
+                           fill = -log10(p.adjust))) +
+        geom_bar(stat = "identity") +
+        coord_flip() +
+        theme_classic() +
+        labs(title = paste("Top", top_n_terms, "enriched terms"),
+             x     = NULL,
+             y     = expression(log[10](FDR))) +
+        theme(plot.title = element_text(hjust = 0.5)) +
+        scale_fill_gradient(low   = "#a6c6f2",
+                            high  = "#0d2d59",
+                            guide = FALSE)
+
+    # Save to output
+    ggsave(output, gg, dpi = 300, height = 7, width = 7)
+}
+
 # Analysis --------------------------------------------------------------------
 
 # Read DEG data
 message("Reading DEG data ...")
 suppressPackageStartupMessages(library("clusterProfiler"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
+suppressPackageStartupMessages(library("ggplot2"))
 data <- read.table(args$input,
                    sep              = "\t",
                    header           = TRUE,
@@ -138,10 +176,18 @@ data <- merge(data, info, by.x = "ENSGID", by.y = "ensembl_gene_id")
 # Perform enrichment analysis
 message("Performing enrichment analysis ...")
 enrich <- enrichment(data, info, args$type)
+enrich <- head(enrich, nrow(enrich))
 
-# Write results to file
-write.table(head(enrich, nrow(enrich)),
-            args$output,
-            sep       = "\t",
-            row.names = FALSE)
+# Plot and save to file
+plot_top_terms(enrich,
+               args$output,
+               args$top_n_terms)
+
+# Write results to file (if applicable)
+if (args$output_list) {
+    write.table(enrich,
+                gsub(".png", ".txt", args$output),
+                sep       = "\t",
+                row.names = FALSE)
+}
 message("Done.")
