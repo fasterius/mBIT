@@ -21,7 +21,7 @@ if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
 
 suppressPackageStartupMessages(library("argparse"))
 parser = ArgumentParser(epilog = paste("Performs GO and/or KEGG enrichment",
-                                       "analyses of DEG data."))
+                                       "analyses of gene or DEG data."))
 parser$add_argument("input",
                     type    = "character",
                     help    = "input DEG file path")
@@ -141,7 +141,7 @@ plot_top_terms <- function(enrich, output, top_n_terms = 10) {
         geom_bar(stat = "identity") +
         coord_flip() +
         theme_classic() +
-        labs(title = paste("Top", top_n_terms, "enriched terms"),
+        labs(title = paste("Top", top_n_terms, "enriched", args$type, "terms"),
              x     = NULL,
              y     = expression(log[10](FDR))) +
         theme(plot.title = element_text(hjust = 0.5)) +
@@ -156,7 +156,7 @@ plot_top_terms <- function(enrich, output, top_n_terms = 10) {
 # Analysis --------------------------------------------------------------------
 
 # Read DEG data
-message("Reading DEG data ...")
+message("Reading gene data ...")
 suppressPackageStartupMessages(library("clusterProfiler"))
 suppressPackageStartupMessages(library("org.Hs.eg.db"))
 suppressPackageStartupMessages(library("ggplot2"))
@@ -170,7 +170,7 @@ message("Reading biomaRt info ...")
 info <- get_biomart_info(args$biomart)
 
 # Merge data with biomaRt info to get Entrez IDs
-message("Merging with DEG data ...")
+message("Merging with gene data ...")
 data <- merge(data, info, by.x = "ENSGID", by.y = "ensembl_gene_id")
 
 # Perform enrichment analysis
