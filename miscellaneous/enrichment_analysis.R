@@ -163,6 +163,7 @@ suppressPackageStartupMessages(library("ggplot2"))
 data <- read.table(args$input,
                    sep              = "\t",
                    header           = TRUE,
+                   quote            = "",
                    stringsAsFactors = FALSE)
 
 # Read biomaRt info
