@@ -143,7 +143,7 @@ plot_top_terms <- function(enrich, output, top_n_terms = 10) {
         theme_classic() +
         labs(title = paste("Top", top_n_terms, "enriched", args$type, "terms"),
              x     = NULL,
-             y     = expression(log[10](FDR))) +
+             y     = expression(-log[10](FDR))) +
         theme(plot.title = element_text(hjust = 0.5)) +
         scale_fill_gradient(low   = "#a6c6f2",
                             high  = "#0d2d59",
@@ -173,6 +173,7 @@ info <- get_biomart_info(args$biomart)
 # Merge data with biomaRt info to get Entrez IDs
 message("Merging with gene data ...")
 data <- merge(data, info, by.x = "ENSGID", by.y = "ensembl_gene_id")
+data <- data[!duplicated(data$entrezgene), ]
 
 # Perform enrichment analysis
 message("Performing enrichment analysis ...")
@@ -189,6 +190,7 @@ if (args$output_list) {
     write.table(enrich,
                 gsub(".png", ".txt", args$output),
                 sep       = "\t",
+                quote     = FALSE,
                 row.names = FALSE)
 }
 message("Done.")
