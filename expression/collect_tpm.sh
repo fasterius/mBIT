@@ -12,14 +12,15 @@ if [ -z ${1+x} ]; then
 fi
 
 # Find files
-FILES=$(find $1 -name 'abundance.t*' -or -name 'quant.sf' | xargs)
+FILES=$(find $1 -name '*abundance.t*' -or -name '*quant.sf' | xargs)
 
 # Get replicate names for column header
 printf "%s" 'ENSTID'
 for FILE in $FILES; do
     NAME=${FILE/.\//}
     NAME2=$(echo $NAME | cut -d "." -f 1)
-	printf "\t%s" $NAME2
+    NAME3=$(echo $NAME2 | rev | cut -d "/" -f 1 | rev)
+	printf "\t%s" $NAME3
 done
 printf "\n"
 
