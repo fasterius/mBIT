@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 
 # Install missing packages (if applicable)
-packages <- c("argparse", "devtools", "ggbiplot", "caret")
+packages <- c("argparse", "devtools", "ggbiplot", "caret", "dplyr")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
   message("Installing missing packages ...")
   tryCatch (silent = TRUE,
@@ -33,6 +33,10 @@ parser$add_argument("-l", "--log",
                     action = "store_true",
                     dest = "log",
                     help = "use log2(data) for analysis")
+parser$add_argument("-L", "--loadings",
+                    action = "store_true",
+                    dest = "loadings",
+                    help = "print PCA loadings")
 parser$add_argument("-H", "--hide-legend",
                     action = "store_false",
                     dest = "legend",
@@ -282,6 +286,25 @@ if (args$summary) {
 
 # Plot pca
 gg <- plot_pca(data, pca)
+
+# Show PCA loadings (if applicable)
+if (args$loadings) {
+
+    # Get loadings for used components
+    loadings <- pca$rotation
+    comps <- paste0("PC", strsplit(args$components, ",")[[1]])
+    loadings <- as.data.frame(loadings[, comps])
+
+    # Load dplyr package
+    suppressPackageStartupMessages(library("dplyr"))
+
+    # Sort for highest correlations
+    loadings <- loadings %>%
+        tibble::rownames_to_column("variable") %>%
+        arrange_(.dots = comps)
+    message("Loadings:")
+    print(loadings)
+}
 
 # Save to file
 ggsave(args$output, gg, dpi = 300, width = 7, height = 5)
