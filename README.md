@@ -120,13 +120,14 @@ expression_barplot.R tpm.transcripts.txt <ENSTID1,ENSTID2,...> transcripts.png
         alt="transcript plot"/>
 </p>
 
-## Unsupervised learning and clustering
+## Multivariate analyses and machine learning
 
-These are scripts for applying machine learning on either variant or expression
-data from the above analyses. The `pairwise_correlations.R` script performs
-correlations in a pairwise manner between samples, for use in the `heatmap.R`,
-`dendrogram.R` and `mds.R` scripts, while the `pc_analysis.R` performs a
-principal component analysis on expression data.
+These are scripts related to multivariate analyses and machine learning,
+applied on either variant or expression data from the above analyses. The
+`pairwise_correlations.R` script performs correlations in a pairwise manner
+between samples, for use in the `heatmap.R`, `dendrogram.R` and `mds.R`
+scripts, while the `pc_analysis.R` performs a principal component analysis on
+expression data.
 
 ```{bash Unsupervised learning}
 # Perform PCA on expression data (with log2 normalisation)
