@@ -3,8 +3,8 @@
 # Install missing packages (if applicable)
 packages <- c("argparse", "tximport", "rhdf5", "DESeq2", "edgeR", "limma")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
-  message("installing missing packages ...")
-  tryCatch (silent = TRUE,
+    message("Installing missing packages ...")
+    tryCatch (silent = TRUE,
             install.packages(setdiff(packages, rownames(installed.packages())),
                              repos = "http://cran.us.r-project.org"),
             warning = function(bc) {

@@ -3,8 +3,8 @@
 # Install missing packages (if applicable)
 packages <- c("argparse", "devtools", "ggbiplot", "caret", "dplyr")
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
-  message("Installing missing packages ...")
-  tryCatch (silent = TRUE,
+    message("Installing missing packages ...")
+    tryCatch (silent = TRUE,
             install.packages(setdiff(packages, rownames(installed.packages())),
                              repos = "http://cran.us.r-project.org"),
             warning = function(bc) {
