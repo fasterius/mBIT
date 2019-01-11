@@ -33,7 +33,7 @@ similarity_heatmap.R similarities.txt similarities.png --cluster
 ```
 
 <p align="center">
-    <img src="figures/example_seqCAT.png" width="300", alt="seqCAT"/>
+    <img src=".figures/example_seqCAT.png" width="300", alt="seqCAT"/>
 </p>
 
 ## Get gene and transcript information from biomaRt
@@ -71,8 +71,8 @@ p_distribution.R degs.txt p_distribution.png
 ```
 
 <p align="center">
-    <img src="figures/example_volcano.png" width="300", alt="volcano plot"/>
-    <img src="figures/example_p_distribution.png" width="300",
+    <img src=".figures/example_volcano.png" width="300", alt="volcano plot"/>
+    <img src=".figures/example_p_distribution.png" width="300",
         alt="p-distribution plot"/>
 </p>
 
@@ -90,7 +90,7 @@ pathway_analysis.R degs.txt
 ```
 
 <p align="center">
-    <img src="figures/example_pathway.png" width="500", alt="pathway plot"/>
+    <img src=".figures/example_pathway.png" width="500", alt="pathway plot"/>
 </p>
 
 ## Raw transcript/gene expression analyses
@@ -116,7 +116,7 @@ expression_barplot.R tpm.transcripts.txt <ENSTID1,ENSTID2,...> transcripts.png
 ```
 
 <p align="center">
-    <img src="figures/example_transcripts.png" width="300",
+    <img src=".figures/example_transcripts.png" width="300",
         alt="transcript plot"/>
 </p>
 
@@ -150,13 +150,13 @@ mds.R correlations.metadata.txt r2 mds.png -g <groups column>
 ```
 
 <p align="center">
-    <img src="figures/example_pca.png" width="400", alt="PCA"/>
-    <img src="figures/example_heatmap.png" width="300", alt="heatmap"/>
+    <img src=".figures/example_pca.png" width="400", alt="PCA"/>
+    <img src=".figures/example_heatmap.png" width="300", alt="heatmap"/>
 </p>
 
 <p align="center">
-    <img src="figures/example_dendrogram.png" width="350", alt="dendrogram"/>
-    <img src="figures/example_mds.png" width="350", alt="MDS plot"/>
+    <img src=".figures/example_dendrogram.png" width="350", alt="dendrogram"/>
+    <img src=".figures/example_mds.png" width="350", alt="MDS plot"/>
 </p>
 
 ## Miscellaneous
@@ -174,7 +174,7 @@ enrichment_analysis.R degs.txt biomaRt_info.txt enrichment.png -t GOslim
 ```
 
 <p align="center">
-    <img src="figures/example_enrichment.png" width="500", alt="pathway plot"/>
+    <img src=".figures/example_enrichment.png" width="500", alt="pathway"/>
 </p>
 
 The `anova.R` script takes long-format data containing both `treatment` and
@@ -187,7 +187,7 @@ anova.R <input> anova.png <treatment variable> <response variable>
 ```
 
 <p align="center">
-    <img src="figures/example_anova.png" width="600", alt="ANOVA"/>
+    <img src=".figures/example_anova.png" width="600", alt="ANOVA"/>
 </p>
 
 The miscellaneous group also contains the `esnp_karyotyping.R` script for
