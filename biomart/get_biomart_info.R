@@ -19,7 +19,8 @@ if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
 
 # Command parser 
 suppressPackageStartupMessages(library("argparse"))
-parser = ArgumentParser(epilog = "Download or update biomaRt info file.")
+parser = ArgumentParser(epilog = paste("Download or update a biomaRt info",
+    "file for use in other mBIT scripts, e.g. DE-analyses.")
 parser$add_argument("assembly",
                     type = "character",
                     help = "assembly to use [GRCh37 or GRCh38]")
@@ -38,14 +39,13 @@ if (assembly == "grch37") {
 
     # GRCh37 assembly
     mart <- useMart(biomart = "ENSEMBL_MART_ENSEMBL",
-                  host    = "grch37.ensembl.org", 
-                  path    = "/biomart/martservice",
-                  dataset = "hsapiens_gene_ensembl")
+                    host    = "grch37.ensembl.org",
+                    path    = "/biomart/martservice",
+                    dataset = "hsapiens_gene_ensembl")
 } else if (assembly == "grch38") {
 
     # GRCh38 assembly
-    mart <- useMart("ensembl",
-                    dataset = "hsapiens_gene_ensembl")
+    mart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 } else {
 
     # Throw an error and stop
